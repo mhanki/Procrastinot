@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const projectsSchema = new mongoose.Schema({
+const projectsSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -10,7 +11,7 @@ const projectsSchema = new mongoose.Schema({
     default: ""
   },
   created_by: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
