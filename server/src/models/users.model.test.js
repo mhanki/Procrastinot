@@ -55,5 +55,14 @@ describe("Test User model", () => {
     expect(u.projects).toBeUndefined();
     expect(user.projects).toEqual([]);
   })
+
+  it("should be invalid if project id is missing", () => {
+    let u = {...validUser};
+    u.projects.push({});
+    let user = new User(u);
+
+    let error = user.validateSync();
+    expect(error).toBeDefined();
+  })
   
 })
