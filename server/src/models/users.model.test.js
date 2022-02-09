@@ -34,13 +34,6 @@ describe("Test User model", () => {
     checkForError(user, "email")
   })
 
-  it("should be invalid if phone number is missing", async () => {
-    let u = removeProperty("phone")
-    const user = new User(u);
-
-    checkForError(user, "phone")
-  })
-
   it("should be invalid if password is missing", () => {
     let u = removeProperty("password")
     const user = new User(u);
