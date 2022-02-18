@@ -22,6 +22,51 @@ const tagsSchema = new Schema({
   }
 });
 
+const tasksSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    default: ""
+  },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  assigned: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  date_created: {
+    type: Date,
+    required: true
+  },
+  tags: [{
+    tag: { type: Schema.Types.ObjectId, required: true },
+    value: { type: Schema.Types.ObjectId, required: true }
+  }],
+  comments: [{
+    author: { type: String, required: true },
+    author_id: { type: Schema.Types.ObjectId, required: true },
+    timestamp: {type: Date, required: true },
+    text: {type: String, required: true}
+  }]
+})
+
+const membersSchema = new Schema({
+  user: { 
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  role: { 
+    type: String, 
+    required: true
+  }
+})
+
 const projectsSchema = new Schema({
   title: {
     type: String,
@@ -41,8 +86,14 @@ const projectsSchema = new Schema({
     required: true
   },
   tags: [tagsSchema],
-  tasks: [],
-  members: []
+  tasks: [tasksSchema],
+  members: {
+    type: [membersSchema],
+    validate: {
+      validator: v => v == null || v.length > 0,
+      message: "Project must have at least one member"
+    }
+  }
 });
 
 module.exports = mongoose.model('Project', projectsSchema);

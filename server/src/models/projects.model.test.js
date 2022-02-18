@@ -33,7 +33,8 @@ const validProject = {
       tags: [{tag: mockTagId, value: mockTagValueId}],
       comments: [
         {
-          author: mockUserId,
+          author: "Dwight Schrute",
+          author_id: mockUserId,
           timestamp: Date.now(),
           text: "I want to help, Michael!"
         }
@@ -52,18 +53,19 @@ const validProject = {
   ]
 }
 
-const removeProperty = (property) => {
-  let p = cloneDeep(validProject);
-  delete p[property];
-  return p
-}
+
 
 const checkForError = (project, property) => {
   let error = project.validateSync()
   expect(error.message).toContain(`Path \`${property}\` is required.`)
 }
 
-describe('Test Project model', () => {
+describe('Project model', () => {
+  const _removeProperty = (property) => {
+    let p = cloneDeep(validProject);
+    delete p[property];
+    return p
+  }
 
   it("should be valid if no required field is missing", () => {
     let project = new Project(validProject)
@@ -73,48 +75,48 @@ describe('Test Project model', () => {
   })
 
   it('should be invalid if title is missing', () => {
-    let p = removeProperty("title")
+    let p = _removeProperty("title")
     let project = new Project(p)
 
     checkForError(project, "title")
   })
 
   it('should create empty string if description is missing', () => {
-    let p = removeProperty("description")
+    let p = _removeProperty("description")
     let project = new Project(p)
 
     expect(p.description).toBeUndefined()
     expect(project.description).toEqual("")
   })
 
-  it('should be invalid if created date is missing', () => {
-    let p = removeProperty("date_created")
+  it('should be invalid if date_created is missing', () => {
+    let p = _removeProperty("date_created")
     let project = new Project(p)
 
     checkForError(project, "date_created")
   })
 
-  it('should be invalid if created by is missing', () => {
-    let p = removeProperty("created_by")
+  it('should be invalid if created_by is missing', () => {
+    let p = _removeProperty("created_by")
     let project = new Project(p)
 
     checkForError(project, "created_by")
   })
 
   it('should create empty array if tasks is missing', () => {
-    let p = removeProperty("tasks")
+    let p = _removeProperty("tasks")
     let project = new Project(p)
 
     expect(p.tasks).toBeUndefined()
     expect(project.tasks).toEqual([])
   })
 
-  it('should create empty array if members is missing', () => {
-    let p = removeProperty("members")
+  it('should contain at least one member', () => {
+    let p = _removeProperty("members")
     let project = new Project(p)
 
-    expect(p.members).toBeUndefined()
-    expect(project.members).toEqual([])
+    let error = project.validateSync();
+    expect(error.message).toContain("Project must have at least one member");
   })
 })
 
@@ -155,62 +157,113 @@ describe("Tags", () => {
 })
 
 describe('Tasks', () => {
+  const _removeProperty = (property) => {
+    let p = cloneDeep(validProject);
+    delete p.tasks[0][property];
+    return p
+  }
 
-  it("should contain titel", () => {
-    
+  it("should be invalid if titel is missing", () => {
+    let p = _removeProperty('title');
+    let project = new Project(p);
+
+    checkForError(project, "title")
   })
 
-  it("should contain description", () => {
-    
+  it("description should be empty if none is provided", () => {
+    let p = _removeProperty('description');
+    let project = new Project(p);
+
+    expect(project.tasks[0].description).toEqual('');
   })
 
-  it("should contain author", () => {
-    
+  it("should be invalid if author is missing", () => {
+    let p = _removeProperty('author');
+    let project = new Project(p);
+
+    checkForError(project, "author")
   })
 
-  it("should contain assigned", () => {
-    
+  it("should have empty array if assigned devs are missing", () => {
+    let p = _removeProperty('assigned');
+    let project = new Project(p);
+
+    expect(project.tasks[0].assigned).toEqual([])
   })
 
-  it("should contain date created", () => {
-    
+  it("should be invalid if date_created is missing", () => {
+    let p = _removeProperty('date_created');
+    let project = new Project(p);
+
+    checkForError(project, "date_created")
   })
 
-  it("should contain tags", () => {
-    
+  it("should have empty array if tags are missing", () => {
+    let p = _removeProperty('tags');
+    let project = new Project(p);
+
+    expect(project.tasks[0].tags).toEqual([])
   })
 
-  it("should contain comments", () => {
-    
+  it("should have empty array if comments are missing", () => {
+    let p = _removeProperty('comments');
+    let project = new Project(p);
+
+    expect(project.tasks[0].comments).toEqual([])
   })
 
 })
 
+describe('Comment', () => {
+  const _removeProperty = (property) => {
+    let p = cloneDeep(validProject);
+    delete p.tasks[0].comments[0][property];
+    return p
+  }
 
-describe('Comments', () => {
-  it("should contain author name", () => {
-    
+  it("should be invalid if author is missing", () => {
+    let p = _removeProperty("author");
+    let project = new Project(p);
+
+    checkForError(project, "author");
   })
 
-  it("should contain User ref to author", () => {
-    
+  it("should be invalid if author_id is missing", () => {
+    let p = _removeProperty("author_id");
+    let project = new Project(p);
+
+    checkForError(project, "author_id");
   })
 
-  it("should contain timestamp", () => {
-    
+  it("should be invalid if timestamp is missing", () => {
+    let p = _removeProperty("timestamp");
+    let project = new Project(p);
+
+    checkForError(project, "timestamp");
   })
 
-  it("should contain text", () => {
-    
+  it("should be invalid if text is missing", () => {
+    let p = _removeProperty("text");
+    let project = new Project(p);
+
+    checkForError(project, "text");
   })
 })
 
 describe('Members', () => {
-  it("should contain Uer ref", () => {
-    
+  it("should be invalid if user id is missing", () => {
+    let p = cloneDeep(validProject);
+    delete p.members[0].user
+    let project = new Project(p);
+
+    checkForError(project, "user")
   })
 
-  it("should contain role", () => {
-    
+  it("should be invalid if role is missing", () => {
+    let p = cloneDeep(validProject);
+    delete p.members[0].role
+    let project = new Project(p);
+
+    checkForError(project, "role")
   })
 })
