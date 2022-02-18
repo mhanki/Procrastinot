@@ -1,62 +1,76 @@
 const Project = require('./projects.model');
+const mongoose = require('mongoose');
+const cloneDeep = require('lodash.clonedeep');
 
-// check that no extra properties are added
+const mockAdminId = new mongoose.Types.ObjectId();
+const mockUserId = new mongoose.Types.ObjectId();
+const mockTagId = new mongoose.Types.ObjectId();
+const mockTagValueId = new mongoose.Types.ObjectId();
+
+const validProject = {
+  title: "Paper Mache",
+  description: "♫ It is a mash... It is a paper mash! ♫",
+  created_by: mockAdminId,
+  date_created: Date.now(),
+  tags: [
+    {
+      _id: mockTagId,
+      name: "status",
+      values: [
+        { _id: mockTagValueId, name: "open", order: 1, color: "gray" },
+        { name: "in progress", order: 2, color: "blue" },
+        { name: "closed", order: 3, color: "green" },
+      ]
+    },
+  ],
+  tasks: [
+    {
+      title: "Get glue",
+      description: "Buy a lot of glue",
+      author: mockAdminId,
+      assigned: [mockAdminId],
+      date_created: Date.now(),
+      tags: [{tag: mockTagId, value: mockTagValueId}],
+      comments: [
+        {
+          author: mockUserId,
+          timestamp: Date.now(),
+          text: "I want to help, Michael!"
+        }
+      ]
+    },
+  ],
+  members: [
+    {
+      user: mockAdminId,
+      role: "Admin"
+    },
+    {
+      user: mockUserId,
+      role: "Developer"
+    }
+  ]
+}
+
+const removeProperty = (property) => {
+  let p = cloneDeep(validProject);
+  delete p[property];
+  return p
+}
+
+const checkForError = (project, property) => {
+  let error = project.validateSync()
+  expect(error.message).toContain(`Path \`${property}\` is required.`)
+}
 
 describe('Test Project model', () => {
-  const validProject = {
-    title: "Paper Mache",
-    description: "♫ It is a mash... It is a paper mash! ♫",
-    created_by: "id123",
-    date_created: Date.now(),
-    tags: [
-      {
-        name: "status",
-        values: [
-          { name: "open", value: 1, color: "gray" },
-          { name: "in progress", value: 2, color: "blue" },
-          { name: "closed", value: 3, color: "green" },
-        ]
-      },
-    ],
-    tasks: [
-      {
-        title: "Get glue",
-        description: "Buy a lot of glue",
-        author: "id123",
-        assignees: ["id123"],
-        date_created: Date.now(),
-        tags: [{name: "status", value: "open"}],
-        comments: [
-          {
-            author: "id124",
-            timestamp: Date.now(),
-            text: "I want to help, Michael!"
-          }
-        ]
-      },
-    ],
-    members: [
-      {
-        user: "id123",
-        role: "Admin"
-      },
-      {
-        user: "id124",
-        role: "Developer"
-      }
-    ]
-  }
 
-  const removeProperty = (property) => {
-    let p = {...validProject}
-    delete p[property];
-    return p
-  }
+  it("should be valid if no required field is missing", () => {
+    let project = new Project(validProject)
 
-  const checkForError = (project, property) => {
     let error = project.validateSync()
-    expect(error.errors[property].message).toContain(`Path \`${property}\` is required.`)
-  }
+    expect(error).toBeUndefined()
+  })
 
   it('should be invalid if title is missing', () => {
     let p = removeProperty("title")
@@ -104,10 +118,46 @@ describe('Test Project model', () => {
   })
 })
 
+describe("Tags", () => {
+
+  it("should contain name", () => {
+    let p = cloneDeep(validProject);
+    delete p.tags[0].name;
+    let project = new Project(p);
+
+    checkForError(project, "name")
+  })
+
+  it("should be invalid if values are missing", () => {
+    let p = cloneDeep(validProject);
+    delete p.tags[0].values;
+    let project = new Project(p);
+   
+    let error = project.validateSync();
+    expect(error.message).toContain("Tag values are required");
+  })
+
+  it("should be invalid if tag value name is missing", () => {
+    let p = cloneDeep(validProject);
+    delete p.tags[0].values[0].name;
+    let project = new Project(p);
+
+    checkForError(project, "name")
+  })
+
+  it("should be invalid if tag order is missing", () => {
+    let p = cloneDeep(validProject);
+    delete p.tags[0].values[0].order;
+    let project = new Project(p);
+    
+    checkForError(project, "order")
+  })
+})
 
 describe('Tasks', () => {
-  it("should contain titel", () => {
 
+  it("should contain titel", () => {
+    
   })
 
   it("should contain description", () => {
@@ -133,6 +183,7 @@ describe('Tasks', () => {
   it("should contain comments", () => {
     
   })
+
 })
 
 
