@@ -20,14 +20,11 @@ const usersSchema = new Schema({
     type: String
   },
   projects: {
-    type: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Project',
-        required: true
-      }
-    ],
-    required: true
+    type: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Project',
+      required: true
+    }]
   }
 });
 

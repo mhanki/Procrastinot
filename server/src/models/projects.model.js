@@ -17,7 +17,7 @@ const tagsSchema = new Schema({
     }],
     validate: {
       validator: v => v == null || v.length > 0,
-      message: "Tag values are required"
+      message: 'Tag values are required'
     }
   }
 });
@@ -29,7 +29,7 @@ const tasksSchema = new Schema({
   },
   description: {
     type: String,
-    default: ""
+    default: ''
   },
   author: {
     type: Schema.Types.ObjectId,
@@ -74,7 +74,7 @@ const projectsSchema = new Schema({
   },
   description: {
     type: String,
-    default: ""
+    default: ''
   },
   created_by: {
     type: Schema.Types.ObjectId,
@@ -91,7 +91,7 @@ const projectsSchema = new Schema({
     type: [membersSchema],
     validate: {
       validator: v => v == null || v.length > 0,
-      message: "Project must have at least one member"
+      message: 'Project must have at least one member'
     }
   }
 });
