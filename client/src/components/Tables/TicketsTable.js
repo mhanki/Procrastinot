@@ -1,34 +1,19 @@
 import React from "react";
 import { 
   Card,
-  CardHeader,
-  Table,
-  Row,
-  Col
+  Table
 } from "reactstrap";
-import TablePagination from './TablePagination';
+import TableHeader from './TableHeader/TableHeader';
+import TablePagination from './TablePagination/TablePagination';
+import OverflowMenu from '../OverflowMenu/OverflowMenu';
 
 // Mock data
-const tickets = [
-  {title: 'Create DB Schema', status: 'Open', type: 'Feature', created_by: 'Michael Scott', priority: 'High'},
-  {title: 'Write Documentation', status: 'In Progress', type: 'Feature', created_by: 'Dwight Schrute', priority: 'Medium'},
-  {title: 'Create Restful API Routes', status: 'Open', type: 'Feature', created_by: 'Michael Scott', priority: 'High'},
-  {title: 'Fix Typo', status: 'Open', type: 'Feature', created_by: 'Michael Scott', priority: 'High'},
-]
-
 const pages = [{number: "1", active: true}, {number: "2", active: false}]
 
-
-const TicketsTable = (props) => {
+const TicketsTable = ({tickets}) => {
   return(
     <Card className="shadow">
-      <CardHeader className="border-0">
-        <Row>
-          <Col className="my-auto">
-            <h3 className="mb-0">Tickets</h3>
-          </Col>
-        </Row>
-      </CardHeader>
+      <TableHeader title="Tickets" button={true} buttonText="New Ticket" />
 
       <Table className="align-items-center table-flush" responsive>
         <thead className="thead-light">
@@ -38,11 +23,12 @@ const TicketsTable = (props) => {
             <th scope="col">Type</th>
             <th scope="col">Created By</th>
             <th scope="col">Priority</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {tickets.map(ticket => (
-            <tr>
+            <tr key={ticket.id}>
               <th scope="row">
                 <span className="mb-0 text-sm">{ticket.title}</span>
               </th>
@@ -50,6 +36,9 @@ const TicketsTable = (props) => {
               <td>{ticket.type}</td>
               <td>{ticket.created_by}</td>
               <td>{ticket.priority}</td>
+              <td>
+                <OverflowMenu items={[{name: "Assign to me", onClick: (e) => e.preventDefault()}]} size="sm" />
+              </td>
             </tr>
           ))}
         </tbody>

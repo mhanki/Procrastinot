@@ -1,34 +1,18 @@
 import React from "react";
 import { 
   Card,
-  CardHeader,
   Table,
-  Row,
-  Col,
 } from "reactstrap";
-import TablePagination from './TablePagination';
+import TableHeader from './TableHeader/TableHeader';
+import TablePagination from './TablePagination/TablePagination';
 
 // Mock data
-const contacts = [
-  {name: 'Michael Scott', email: 'michael_scott@dundermiff.com', phone: '(120)6758-5965'},
-  {name: 'Dwight Schrute', email: 'schrutefarms@gmail.com', phone: '(120)6758-5965'},
-  {name: 'Kevin Malone', email: 'scrantonicity@gmail.com', phone: '(120)6758-5965'},
-]
-
 const pages = [{number: "1", active: true}]
 
-
-
-const MemberTable = (props) => {
+const MemberTable = ({members}) => {
   return(
     <Card className="shadow">
-      <CardHeader className="border-0">
-        <Row>
-          <Col className="my-auto">
-            <h3 className="mb-0">Team</h3>
-          </Col>
-        </Row>
-      </CardHeader>
+      <TableHeader title="Team" />
 
       <Table className="align-items-center table-flush" responsive>
         <thead className="thead-light">
@@ -39,17 +23,18 @@ const MemberTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {contacts.map(contact => (
-            <tr>
+          {members.map(member => (
+            <tr key={member.name}>
               <td>
-                <span className="text-sm">{contact.name}</span>
+                <span className="text-sm">{member.name}</span>
               </td>
-              <td>{contact.email}</td>
-              <td>{contact.phone}</td>
+              <td>{member.email}</td>
+              <td>{member.phone}</td>
             </tr>
           ))}
         </tbody>
       </Table>
+
       <TablePagination pages={pages} />
     </Card>
   )

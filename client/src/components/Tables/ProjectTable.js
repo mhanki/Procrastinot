@@ -1,36 +1,19 @@
 import React from "react";
 import { 
   Card,
-  CardHeader,
   Table,
-  Row,
-  Col
 } from "reactstrap";
-import TablePagination from './TablePagination';
+import TableHeader from './TableHeader/TableHeader';
+import TablePagination from './TablePagination/TablePagination';
 
 // Mock data
-const projects = [
-  {title: 'Selenite', description: 'Minimalistic Spotify Player', created_by: 'Michael Scott'},
-  {title: 'Zen Focus', description: 'Pomodoro timer with meditation based breaks', created_by: 'Michael Scott'},
-  {title: 'Issue Tracker', description: 'Project management app for tracking tasks', created_by: 'Dwight Schrute'}
-]
-
 const pages = [{number: "1", active: true}, {number: "2", active: false}, {number: "3", active: false}]
 
 
-const ProjectTable = (props) => {
+const ProjectTable = ({projects}) => {
   return(
     <Card className="shadow">
-      <CardHeader className="border-0">
-        <Row>
-          <Col className="my-auto">
-            <h3 className="mb-0">Projects</h3>
-          </Col>
-          <Col className="text-md-right">
-            <button className="btn btn-primary">New Project</button>
-          </Col>
-        </Row>
-      </CardHeader>
+      <TableHeader title="Projects" button={true} buttonText="New Project" />
 
       <Table className="align-items-center table-flush" responsive>
         <thead className="thead-light">
@@ -42,7 +25,7 @@ const ProjectTable = (props) => {
         </thead>
         <tbody>
           {projects.map(project => (
-            <tr>
+            <tr key={project.id}>
               <th scope="row">
                 <span className="mb-0 text-sm">{project.title}</span>
               </th>
