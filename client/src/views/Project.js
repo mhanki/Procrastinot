@@ -1,25 +1,35 @@
 import React from "react";
-import { Container, Row, Col } from 'reactstrap';
-import Header from '../components/Headers/Header';
+import {
+  Row,
+  Col
+ } from 'reactstrap';
+ import Modal from '../components/Modals/Modal';
 import MemberTable from '../components/Tables/MemberTable';
 import TicketsTable from '../components/Tables/TicketsTable';
+import SelectedTicket from '../components/Cards/SelectedTicket/SelectedTicket';
+
+// Mock data
+import { members, tickets, ticketInfo } from '../mockData';
 
 const Project = () => {
+  const [isModalOpen, setModalOpen] = React.useState(false);
+  const modalToggle = () => setModalOpen(prevState => !prevState);
 
   return(
-    <div className="main-content">
-      <Header heading="Project" />
-      <Container className="mt--7" fluid>
-        <Row>
-          <Col md="auto" lg="5">
-            <MemberTable />
-          </Col>
-          <Col>
-            <TicketsTable />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <>
+      <Modal isOpen={isModalOpen} toggle={modalToggle} />
+      <Row>
+        <Col md="auto" lg="5">
+          <MemberTable members={members} />
+        </Col>
+        <Col>
+          <TicketsTable tickets={tickets} />
+        </Col>
+      </Row>
+      <Row className="mt-5 mb-5 ticket-container">
+        <SelectedTicket ticketInfo={ticketInfo} modalToggle={modalToggle} />
+      </Row>
+    </>
   )
 }
 
