@@ -1,0 +1,212 @@
+/* Colors */
+:root {
+  --primary: #5e72e4;
+  --grey: #8898aa;
+  --default: #172B4D;
+  --text: #525F7F;
+}
+
+/* General styles */
+h1 {
+  color: white;
+}
+
+.ni {
+  color: var(--primary);
+}
+
+.no-flex-grow {
+  flex-grow: unset;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.custom-shadow {
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(50, 50, 93, 0.15);
+  border: none;
+}
+
+.header {
+  background: linear-gradient(90deg, #7F53AC 0%, #647DEE 100%);
+}
+
+
+/* Ticket Card */
+.ticket-container{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.selected-ticket {
+  width: 100%;
+}
+
+.selected-ticket .card-body {
+  padding-left: calc(1.5rem + 15px);
+  height: 548px;
+}
+
+.ticket-info {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  height: calc(500px - 4rem);
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-details {
+  height: 500px; 
+  width: 60%; 
+  padding: 2rem; 
+  overflow: scroll;
+}
+
+.ticket-details .row-2 {
+  margin-top: 3.5rem;
+}
+
+.ticket-details .row-3 {
+  margin-top: auto;
+}
+
+.tag {
+  margin-bottom: 10px;
+}
+
+.pill {
+  padding-left: 5px; 
+  padding-right: 5px; 
+  border-radius: 5px;
+  color: var(--default);
+  font-size: 14px;
+}
+
+.comments-container {
+  padding: 2rem; 
+  padding-top: 1rem; 
+  padding-bottom: 0; 
+  display: flex; 
+  flex-direction: column;
+}
+
+.comments-container form {
+  margin-top: auto;
+}
+
+.comments {
+  overflow: scroll;
+  height: 309px;
+  margin-bottom: 10px;
+}
+
+.comment-author {
+  font-weight: 600; 
+  margin-right: 15px;
+}
+
+.comment {
+  padding: 1rem;
+  margin-top: 15px; 
+  margin-bottom: 15px; 
+  color: var(--text);
+}
+.comment p {
+  margin-bottom: 0;
+}
+
+.comment-btn {
+  margin-left: auto; 
+  margin-top: 5px; 
+  display: block;
+}
+
+
+/* Table Header */
+.table-header.with-btn {
+  padding: 0.8rem 1.5rem;
+}
+
+
+/* Overflow Menu */
+.overflow-menu-icon {
+  padding: 0 5px;
+}
+
+.overflow-menu-icon div {
+  width: 5px;
+  height: 5px;
+  background-color: var(--grey);
+  margin: 6px 0 6px auto;
+  border-radius: 50px;
+}
+
+.overflow-menu-icon.sm {
+  margin-left: auto;
+  max-width: max-content;
+}
+
+.overflow-menu-icon.sm div {
+  width: 3px;
+  height: 3px;
+  margin: 3px 0;
+}
+
+.overflow-menu:hover {
+  cursor: pointer;
+}
+
+.dropdown-item, .dropdown-item:hover {
+  color: var(--text);
+}
+
+tr {
+  position: relative;
+}
+
+/* Modal */
+.dropdown {
+  display: block;
+}
+
+.btn-secondary.dropdown-toggle {
+  color: var(--text);
+  background: white;
+  max-width: 100%;
+  padding: 0.5rem 0.5rem;
+  white-space: unset;
+}
+
+.show > .btn-secondary.dropdown-toggle,
+.btn-secondary:not(:disabled):not(.disabled):active {
+  background-color: unset;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: var(--text);
+}
+
+.btn:not(:last-child) {
+  margin-right: 0;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.modal-dialog {
+  max-width: 570px;
+  margin-top: 5rem;
+}
+
+.modal-dialog .btn {
+  font-weight: 300;
+}
+
+.modal-dialog .btn-success {
+  padding: 0.8rem 1.25rem;
+  margin-top: 25px;
+}
+
+.modal-dialog label {
+  font-weight: 600;
+}
