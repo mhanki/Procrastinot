@@ -1,6 +1,4 @@
 import { useState } from "react";
-
-// reactstrap components
 import {
   Collapse,
   Navbar,
@@ -12,7 +10,7 @@ import {
   Col,
 } from "reactstrap";
 
-const Sidebar = (props) => {
+const Sidebar = () => {
   const navInfo = [
     {name: 'Dashboard', icon: 'tv-2', link: '#'},
     {name: 'Projects', icon: 'folder-17', link: '#'},
@@ -21,23 +19,18 @@ const Sidebar = (props) => {
   ]
   const [collapseOpen, setCollapseOpen] = useState();
 
-  // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
     setCollapseOpen((data) => !data);
   };
 
   return (
     <Navbar
+      id="sidenav-main"
       className="navbar-vertical fixed-left navbar-light bg-white"
       expand="md"
-      id="sidenav-main"
-      style={{ maxWidth: '200px' }}
     >
       <Container fluid>
-        <button
-          className="navbar-toggler"
-          type="button"
-          onClick={toggleCollapse} >
+        <button className="navbar-toggler" type="button" onClick={toggleCollapse} >
           <span className="navbar-toggler-icon" />
         </button>
 
@@ -45,10 +38,7 @@ const Sidebar = (props) => {
           <div className="navbar-collapse-header d-md-none">
             <Row>
               <Col className="collapse-close" xs="6">
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  onClick={toggleCollapse} >
+                <button className="navbar-toggler" type="button" onClick={toggleCollapse} >
                   <span />
                   <span />
                 </button>
@@ -56,14 +46,13 @@ const Sidebar = (props) => {
             </Row>
           </div>
 
-          {/* Divider */}
           <hr className="my-3" />
 
           <Nav className="mb-md-3" navbar>
             {navInfo.map(item => (
-              <NavItem>
+              <NavItem key={item.name}>
                 <NavLink href={item.link}>
-                  <i className={`ni ni-${item.icon}`} style={{ color: '#5e72e4' }} />
+                  <i className={`ni ni-${item.icon}`} />
                   {item.name}
                 </NavLink>
               </NavItem>
