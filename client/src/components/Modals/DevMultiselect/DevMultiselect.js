@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormGroup, Input, Label } from 'reactstrap';
 
-const DevMultiselect = ({label, members}) => {
+const DevMultiselect = ({ label, members }) => {
   return (
     <FormGroup>
       <Label>Assign Developer</Label>
       <Input id="exampleSelectMulti" multiple name="selectMulti" type="select" >
-        {members.map(({user}) => (
+        {members.map(({ user }) => (
           <option key={user._id}>
             {user.name}
           </option>

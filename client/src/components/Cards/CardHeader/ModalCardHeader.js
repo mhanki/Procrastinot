@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardHeader, Row, Col } from 'reactstrap';
 
-const ModalCardHeader = ({title, closeModal}) => {
+const ModalCardHeader = ({ title, closeModal }) => {
   return (
     <CardHeader className="card-header bg-white border-0">
       <Row className="align-items-center">

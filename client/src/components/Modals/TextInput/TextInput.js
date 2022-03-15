@@ -1,8 +1,7 @@
 import React from 'react';
 import { FormGroup, Input, Label } from 'reactstrap';
 
-const TextInput =({label, type="text"}) => {
-
+const TextInput = ({ label, type = "text" }) => {
   return (
     <FormGroup>
       <Label>{label}</Label>

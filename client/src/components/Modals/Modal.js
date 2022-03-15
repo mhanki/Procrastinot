@@ -1,6 +1,6 @@
 import React from 'react';
-import { 
-  Modal as BModal, 
+import {
+  Modal as BModal,
   Card, CardBody,
   Row, Col, Button,
   Form
@@ -10,8 +10,8 @@ import TagInputs from './TagInputs/TagInputs';
 import DevMultiselect from './DevMultiselect/DevMultiselect';
 import TextInput from './TextInput/TextInput';
 
-const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
-  return(
+const Modal = ({ isOpen, toggle, ticketInfo, members, tags }) => {
+  return (
     <BModal isOpen={isOpen} toggle={toggle} >
       <Card className="bg-secondary">
         <ModalCardHeader title="Edit Ticket" closeModal={toggle} />
@@ -19,10 +19,10 @@ const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
           <Form>
             <Row>
               <Col md="7">
-                <TagInputs tags={tags} ticketInfo={ticketInfo} size="sm"/>
+                <TagInputs tags={tags} ticketInfo={ticketInfo} size="sm" />
               </Col>
               <Col>
-                <DevMultiselect members={members}/>
+                <DevMultiselect members={members} />
                 <TextInput label="Estimated Time (Hours)" />
               </Col>
             </Row>
@@ -35,4 +35,3 @@ const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
 }
 
 export default Modal;
-

@@ -6,7 +6,7 @@ import {
   Input
 } from 'reactstrap';
 
-const Comment = ({author, timestamp, text}) => (
+const Comment = ({ author, timestamp, text }) => (
   <>
     <div>
       <span className="comment-author">{author}</span>
@@ -20,7 +20,7 @@ const Comment = ({author, timestamp, text}) => (
   </>
 )
 
-const Comments = ({comments}) => {
+const Comments = ({ comments }) => {
   return (
     <Col className="comments-container">
       <div className="info-heading">
@@ -28,7 +28,7 @@ const Comments = ({comments}) => {
       </div>
       <div className="comments">
         {comments.map(comment => (
-          <Comment {...comment} key={comment.id}/>
+          <Comment {...comment} key={comment.id} />
         ))}
       </div>
       <Form>

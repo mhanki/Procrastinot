@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, 
+  Card,
   CardBody,
   Row
 } from 'reactstrap';
@@ -8,15 +8,15 @@ import CardHeader from '../CardHeader/CardHeader';
 import TicketDetails from './TicketDetails';
 import Comments from './Comments';
 
-const SelectedTicket = ({ticketInfo, modalToggle}) => {
-  let {comments, ...info} = ticketInfo;
-  
+const SelectedTicket = ({ ticketInfo, modalToggle }) => {
+  let { comments, ...info } = ticketInfo;
+
   const menuItems = [
-    {name: "Edit", action: modalToggle}, 
-    {name: "Remove Assignment", action: () => {return false}}
+    { name: "Edit", action: modalToggle },
+    { name: "Remove Assignment", action: () => { return false } }
   ]
-  
-  return(
+
+  return (
     <Card className="selected-ticket bg-secondary shadow">
       <CardHeader title="Selected Ticket" menu menuItems={menuItems} />
       <CardBody>

@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
   Card,
   Table,
 } from "reactstrap";
@@ -7,10 +7,10 @@ import TableHeader from './TableHeader/TableHeader';
 import TablePagination from './TablePagination/TablePagination';
 
 // Mock data
-const pages = [{number: "1", active: true}]
+const pages = [{ number: "1", active: true }]
 
-const MemberTable = ({members}) => {
-  return(
+const MemberTable = ({ members }) => {
+  return (
     <Card className="shadow">
       <TableHeader title="Team" />
 
@@ -23,7 +23,7 @@ const MemberTable = ({members}) => {
           </tr>
         </thead>
         <tbody>
-          {members.map(({user}) => (
+          {members.map(({ user }) => (
             <tr key={user.name}>
               <td>
                 <span className="text-sm">{user.name}</span>

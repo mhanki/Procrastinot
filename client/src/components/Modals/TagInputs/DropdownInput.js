@@ -1,13 +1,13 @@
 import React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const Item = ({value, setSelectedValue}) => (
+const Item = ({ value, setSelectedValue }) => (
   <DropdownItem onClick={() => setSelectedValue(value)}>
     {value}
   </DropdownItem>
 )
 
-const DropdownInput = ({values, selected}) => {
+const DropdownInput = ({ values, selected }) => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(selected);
   const toggle = () => setOpen(prevState => !prevState);

@@ -2,8 +2,8 @@ import React from "react";
 import {
   Row,
   Col
- } from 'reactstrap';
- import Modal from '../components/Modals/Modal';
+} from 'reactstrap';
+import Modal from '../components/Modals/Modal';
 import MemberTable from '../components/Tables/MemberTable';
 import TicketsTable from '../components/Tables/TicketsTable';
 import SelectedTicket from '../components/Cards/SelectedTicket/SelectedTicket';
@@ -17,7 +17,7 @@ const Project = () => {
   const [isModalOpen, setModalOpen] = React.useState(false);
   const modalToggle = () => setModalOpen(prevState => !prevState);
 
-  return(
+  return (
     <>
       <Modal isOpen={isModalOpen} toggle={modalToggle} ticketInfo={ticketInfo} members={members} tags={tags} />
       <Row>

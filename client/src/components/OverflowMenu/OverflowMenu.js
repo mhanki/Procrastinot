@@ -1,16 +1,16 @@
 import React from 'react';
-import { 
-  Dropdown, 
-  DropdownMenu, 
-  DropdownToggle, 
-  DropdownItem 
+import {
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem
 } from 'reactstrap';
 
-const OverflowMenu = ({items, size=''}) => {
+const OverflowMenu = ({ items, size = '' }) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
-  return(
+  return (
     <Dropdown className="overflow-menu" direction="left" isOpen={dropdownOpen} toggle={toggle} options={items}>
       <DropdownToggle
         data-toggle="dropdown"

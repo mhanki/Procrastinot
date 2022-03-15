@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import OverflowMenu from '../../OverflowMenu/OverflowMenu';
 
-const CardHeader = ({title, menu, menuItems, button, buttonText, onClick}) => (
+const CardHeader = ({ title, menu, menuItems, button, buttonText, onClick }) => (
   <BCardHeader className="card-header bg-white border-0">
     <Row className="align-items-center">
       <Col>
@@ -23,7 +23,7 @@ const CardHeader = ({title, menu, menuItems, button, buttonText, onClick}) => (
           </Button>
         </Col>
       }
-      {menu && 
+      {menu &&
         <Col className="no-flex-grow">
           <OverflowMenu items={menuItems} />
         </Col>

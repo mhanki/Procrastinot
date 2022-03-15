@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
   Card,
   Table,
 } from "reactstrap";
@@ -7,11 +7,11 @@ import TableHeader from './TableHeader/TableHeader';
 import TablePagination from './TablePagination/TablePagination';
 
 // Mock data
-const pages = [{number: "1", active: true}, {number: "2", active: false}, {number: "3", active: false}]
+const pages = [{ number: "1", active: true }, { number: "2", active: false }, { number: "3", active: false }]
 
 
-const ProjectTable = ({projects}) => {
-  return(
+const ProjectTable = ({ projects }) => {
+  return (
     <Card className="shadow">
       <TableHeader title="Projects" button={true} buttonText="New Project" />
 

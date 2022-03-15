@@ -12,10 +12,10 @@ import {
 
 const Sidebar = () => {
   const navInfo = [
-    {name: 'Dashboard', icon: 'tv-2', link: '#'},
-    {name: 'Projects', icon: 'folder-17', link: '#'},
-    {name: 'Tickets', icon: 'bullet-list-67', link: '#'},
-    {name: 'Profile', icon: 'single-02', link: '#'}
+    { name: 'Dashboard', icon: 'tv-2', link: '#' },
+    { name: 'Projects', icon: 'folder-17', link: '#' },
+    { name: 'Tickets', icon: 'bullet-list-67', link: '#' },
+    { name: 'Profile', icon: 'single-02', link: '#' }
   ]
   const [collapseOpen, setCollapseOpen] = useState();
 

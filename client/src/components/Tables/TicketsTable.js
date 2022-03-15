@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
   Card,
   Table
 } from "reactstrap";
@@ -8,10 +8,10 @@ import TablePagination from './TablePagination/TablePagination';
 import OverflowMenu from '../OverflowMenu/OverflowMenu';
 
 // Mock data
-const pages = [{number: "1", active: true}, {number: "2", active: false}]
+const pages = [{ number: "1", active: true }, { number: "2", active: false }]
 
-const TicketsTable = ({tickets}) => {
-  return(
+const TicketsTable = ({ tickets }) => {
+  return (
     <Card className="shadow">
       <TableHeader title="Tickets" button={true} buttonText="New Ticket" />
 
@@ -37,7 +37,7 @@ const TicketsTable = ({tickets}) => {
               <td>{ticket.created_by}</td>
               <td>{ticket.tags['priority'].value}</td>
               <td>
-                <OverflowMenu items={[{name: "Assign to me", onClick: (e) => e.preventDefault()}]} size="sm" />
+                <OverflowMenu items={[{ name: "Assign to me", onClick: (e) => e.preventDefault() }]} size="sm" />
               </td>
             </tr>
           ))}

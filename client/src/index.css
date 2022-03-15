@@ -1,4 +1,5 @@
-/* Colors */
+/* -- COLORS -- */
+
 :root {
   --primary: #5e72e4;
   --grey: #8898aa;
@@ -6,7 +7,8 @@
   --text: #525F7F;
 }
 
-/* General styles */
+/* -- GENERAL STYLES -- */
+
 h1 {
   color: white;
 }
@@ -46,7 +48,8 @@ label {
 }
 
 
-/* Ticket Card */
+/* -- TICKET CARD -- */
+
 .ticket-container{
   padding-left: 15px;
   padding-right: 15px;
@@ -101,13 +104,14 @@ label {
   border-radius: 5px;
   color: var(--default);
   font-size: 14px;
+  text-transform: capitalize;
 }
 
 .assignee-info {
   margin-top: auto;
 }
 
-/* Comments */
+/* -- COMMENTS -- */
 
 .comments-container {
   padding: 2rem; 
@@ -150,13 +154,15 @@ label {
 }
 
 
-/* Table Header */
+/* -- TABLE HEADER -- */
+
 .table-header.with-btn {
   padding: 0.8rem 1.5rem;
 }
 
 
-/* Overflow Menu */
+/* -- OVERFLOW MENU -- */
+
 .overflow-menu-icon {
   padding: 0 5px;
 }
@@ -192,7 +198,8 @@ tr {
   position: relative;
 }
 
-/* Modal */
+/* -- MODAL -- */
+
 .dropdown {
   display: block;
 }

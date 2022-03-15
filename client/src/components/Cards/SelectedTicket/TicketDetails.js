@@ -5,15 +5,15 @@ import {
   Col
 } from 'reactstrap';
 
-const Tag = ({name, status}) => (
+const Tag = ({ name, status }) => (
   <div className="tag">
     <div className="info-heading">{name}</div>
-    <span className="pill" style={{backgroundColor: `${status.color}`}}>{status.value}</span>
+    <span className="pill" style={{ backgroundColor: `${status.color}` }}>{status.value}</span>
   </div>
 )
 
-const TicketDetails = ({created_by, date_created, title, description, time, assigned, tags}) => {
-  return(
+const TicketDetails = ({ created_by, date_created, title, description, time, assigned, tags }) => {
+  return (
     <Card className="ticket-details custom-shadow">
       <Row>
         <Col className="ticket-info" xs="7">
