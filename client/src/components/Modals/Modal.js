@@ -5,42 +5,9 @@ import {
   Row, Col, Button,
   Form, FormGroup, Input, Label
 } from 'reactstrap';
-import DropdownInput from './DropdownInput';
-
-const TagInput = ({tag, values, selectedValue}) => {
-  return(
-    <FormGroup>
-      <Label>{tag}</Label>
-      <DropdownInput values={values.map(value => value.name)} selected={selectedValue} />
-    </FormGroup>
-  )
-}
-
-const TagRow = ({tags, selected}) => {
-  let [tag1, tag2] = tags
-
-  return (
-    <Row>
-      <Col className="no-padding-right" md="6">
-        <TagInput tag={tag1.name} values={tag1.values} selectedValue={selected[tag1.name].value} />
-      </Col>
-      {tag2 && (
-        <Col md="6">
-          <TagInput tag={tag2.name} values={tag2.values} selectedValue={selected[tag2.name].value}/>
-        </Col>
-      )}
-    </Row>
-  )
-}
+import TagInputs from './TagInputs/TagInputs';
 
 const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
-  let slicedTags = tags.reduce((result, value, index, array) => {
-    if(index % 2 === 0) { 
-      result.push(array.slice(index, index + 2)) 
-    };
-    return result;
-  }, []);
-
   return(
     <BModal isOpen={isOpen} toggle={toggle} >
       <Card className="bg-secondary">
@@ -58,9 +25,7 @@ const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
           <Form>
             <Row>
               <Col md="7">
-                {slicedTags.map((pair, i) => (
-                  <TagRow key={i} tags={pair} selected={ticketInfo.tags}/>
-                ))}
+                <TagInputs tags={tags} ticketInfo={ticketInfo} size="sm"/>
               </Col>
               
               <Col>
@@ -76,7 +41,7 @@ const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
                 </FormGroup>
                 <FormGroup>
                   <Label>Estimated Time (Hours)</Label>
-                  <Input value={ticketInfo.time} />
+                  <Input />
                 </FormGroup>
               </Col>
             </Row>

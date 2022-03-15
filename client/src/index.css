@@ -242,3 +242,11 @@ tr {
 .modal-dialog label {
   font-weight: 600;
 }
+
+.tag-inputs {
+  display: grid;
+}
+
+.tag-inputs.sm {
+  grid-template-columns: repeat(2, 1fr);
+}
