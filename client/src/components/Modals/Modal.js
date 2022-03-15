@@ -3,105 +3,88 @@ import {
   Modal as BModal, 
   Card, CardHeader, CardBody,
   Row, Col, Button,
-  Form, FormGroup, Input, Label,
-  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
+  Form, FormGroup, Input, Label
 } from 'reactstrap';
+import DropdownInput from './DropdownInput';
 
-const DropdownInput = ({values}) => {
-  const [open, setOpen] = React.useState(false);
-  const toggle = () => setOpen(prevState => !prevState);
-  const [selectedValue, setSelectedValue] = React.useState(values[0]);
-
-  return (
-    <Dropdown isOpen={open} toggle={toggle}>
-      <DropdownToggle caret>
-        {selectedValue}
-      </DropdownToggle>
-      <DropdownMenu>
-        {values.map(value => (
-          <Item key={value} value={value} setSelectedValue={setSelectedValue} />
-        ))}
-      </DropdownMenu>
-    </Dropdown>
+const TagInput = ({tag, values, selectedValue}) => {
+  return(
+    <FormGroup>
+      <Label>{tag}</Label>
+      <DropdownInput values={values.map(value => value.name)} selected={selectedValue} />
+    </FormGroup>
   )
 }
 
-const Item = ({value, setSelectedValue}) => (
-  <DropdownItem onClick={() => setSelectedValue(value)}>
-    {value}
-  </DropdownItem>
-)
+const TagRow = ({tags, selected}) => {
+  let [tag1, tag2] = tags
 
-const Modal = ({isOpen, toggle, developers=["Michael Scott", "Dwight Schrute"]}) => {
+  return (
+    <Row>
+      <Col className="no-padding-right" md="6">
+        <TagInput tag={tag1.name} values={tag1.values} selectedValue={selected[tag1.name].value} />
+      </Col>
+      {tag2 && (
+        <Col md="6">
+          <TagInput tag={tag2.name} values={tag2.values} selectedValue={selected[tag2.name].value}/>
+        </Col>
+      )}
+    </Row>
+  )
+}
+
+const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
+  let slicedTags = tags.reduce((result, value, index, array) => {
+    if(index % 2 === 0) { 
+      result.push(array.slice(index, index + 2)) 
+    };
+    return result;
+  }, []);
+
   return(
-      <BModal isOpen={isOpen} toggle={toggle} >
-        <Card className="bg-secondary">
-          <CardHeader className="card-header bg-white border-0">
-            <Row className="align-items-center">
-              <Col>
-                <h3 className="mb-0">Edit Ticket</h3>
-              </Col>
-              <Col className="no-flex-grow">
+    <BModal isOpen={isOpen} toggle={toggle} >
+      <Card className="bg-secondary">
+        <CardHeader className="card-header bg-white border-0">
+          <Row className="align-items-center">
+            <Col>
+              <h3 className="mb-0">Edit Ticket</h3>
+            </Col>
+            <Col className="no-flex-grow">
               <button onClick={toggle} type="button" className="close" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </Col>
+          </Row>
+        </CardHeader>
+        <CardBody>
+          <Form>
+            <Row>
+              <Col md="7">
+                {slicedTags.map((pair, i) => (
+                  <TagRow key={i} tags={pair} selected={ticketInfo.tags}/>
+                ))}
+              </Col>
+              
+              <Col>
+                <FormGroup>
+                  <Label>Assign Developer</Label>
+                  <Input id="exampleSelectMulti" multiple name="selectMulti" type="select" >
+                    {members.map(({user}) => (
+                      <option key={user._id}>
+                        {user.name}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label>Estimated Time (Hours)</Label>
+                  <Input value={ticketInfo.time} />
+                </FormGroup>
               </Col>
             </Row>
-          </CardHeader>
-          <CardBody>
-            <Form>
-              <Row>
-                <Col md="7">
-                  <Row>
-                    <Col className="no-padding-right" md="6">
-                      <FormGroup>
-                        <Label>Status</Label>
-                        <DropdownInput values={["Open", "In Progress", "Closed"]} />
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <Label>Priority</Label>
-                        <DropdownInput values={["Medium", "High", "Low"]} />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="no-padding-right" md="6">
-                      <FormGroup>
-                        <Label>Type</Label>
-                        <DropdownInput values={["Issue", "Feature Request", "Bug"]} />
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <Label>Custom Tag 1</Label>
-                        <DropdownInput values={["Val 1", "Val 2", "Val 3"]} />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col>
-                  <FormGroup>
-                    <Label>Assign Developer</Label>
-                    <Input id="exampleSelectMulti" multiple name="selectMulti" type="select" >
-                      {developers.map(developer => (
-                        <option key={developer}>
-                          {developer}
-                        </option>
-                      ))}
-                    </Input>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label>Estimated Time (Hours)</Label>
-                    <Input>
-                    </Input>
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Button color="success">Submit</Button>
-            </Form>
-          </CardBody>
-        </Card>
-      </BModal>
+            <Button color="success">Submit</Button>
+          </Form>
+        </CardBody>
+      </Card>
+    </BModal>
   )
 }
 

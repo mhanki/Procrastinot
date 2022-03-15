@@ -28,14 +28,14 @@ const TicketsTable = ({tickets}) => {
         </thead>
         <tbody>
           {tickets.map(ticket => (
-            <tr key={ticket.id}>
+            <tr key={ticket._id}>
               <th scope="row">
                 <span className="mb-0 text-sm">{ticket.title}</span>
               </th>
-              <td>{ticket.status}</td>
-              <td>{ticket.type}</td>
+              <td>{ticket.tags['status'].value}</td>
+              <td>{ticket.tags['type'].value}</td>
               <td>{ticket.created_by}</td>
-              <td>{ticket.priority}</td>
+              <td>{ticket.tags['priority'].value}</td>
               <td>
                 <OverflowMenu items={[{name: "Assign to me", onClick: (e) => e.preventDefault()}]} size="sm" />
               </td>

@@ -9,15 +9,17 @@ import TicketsTable from '../components/Tables/TicketsTable';
 import SelectedTicket from '../components/Cards/SelectedTicket/SelectedTicket';
 
 // Mock data
-import { members, tickets, ticketInfo } from '../mockData';
+import { projectData } from '../mockData';
 
 const Project = () => {
+  let { members, tickets, tags } = projectData
+  let ticketInfo = projectData.tickets.filter(ticket => ticket._id === 1)[0]
   const [isModalOpen, setModalOpen] = React.useState(false);
   const modalToggle = () => setModalOpen(prevState => !prevState);
 
   return(
     <>
-      <Modal isOpen={isModalOpen} toggle={modalToggle} />
+      <Modal isOpen={isModalOpen} toggle={modalToggle} ticketInfo={ticketInfo} members={members} tags={tags} />
       <Row>
         <Col md="auto" lg="5">
           <MemberTable members={members} />

@@ -5,45 +5,49 @@ import {
   Col
 } from 'reactstrap';
 
-const Tag = ({name, value, color}) => (
+const Tag = ({name, status}) => (
   <div className="tag">
-    <div>{name}</div>
-    <span className="pill" style={{backgroundColor: `${color}`}}>{value}</span>
+    <div className="info-heading">{name}</div>
+    <span className="pill" style={{backgroundColor: `${status.color}`}}>{status.value}</span>
   </div>
 )
 
-const TicketDetails = ({author, date_created, title, description, time, tags}) => {
+const TicketDetails = ({created_by, date_created, title, description, time, assigned, tags}) => {
   return(
     <Card className="ticket-details custom-shadow">
       <Row>
         <Col className="ticket-info" xs="7">
           <Row>
             <Col>
-              <div>Author</div>
-              <p>{author}</p>
+              <div className="info-heading">Author</div>
+              <p>{created_by}</p>
             </Col>
             <Col>
-              <div>Created</div>
+              <div className="info-heading">Created</div>
               <p>{date_created}</p>
             </Col>
           </Row>
           <Row className="row-2">
             <Col>
-              <div>{title}</div>
+              <h3>{title}</h3>
               <p>{description}</p>
             </Col>
           </Row>
           <Row className="row-3">
             <Col>
-              <div>Estimated Time</div>
+              <div className="info-heading">Estimated Time</div>
               <p>{time} hour</p>
             </Col>
           </Row>
         </Col>
         <Col>
-          {tags.map(tag => (
-            <Tag {...tag} key={tag.name} />
+          {Object.keys(tags).map(tag => (
+            <Tag name={tag} status={tags[tag]} key={tag} />
           ))}
+          <div className="assignee-info">
+            <div className="info-heading">Assigned</div>
+            <p>{assigned[0]}</p>
+          </div>
         </Col>
       </Row>
     </Card>

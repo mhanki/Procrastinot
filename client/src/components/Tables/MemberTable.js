@@ -23,13 +23,13 @@ const MemberTable = ({members}) => {
           </tr>
         </thead>
         <tbody>
-          {members.map(member => (
-            <tr key={member.name}>
+          {members.map(({user}) => (
+            <tr key={user.name}>
               <td>
-                <span className="text-sm">{member.name}</span>
+                <span className="text-sm">{user.name}</span>
               </td>
-              <td>{member.email}</td>
-              <td>{member.phone}</td>
+              <td>{user.email}</td>
+              <td>{user.phone}</td>
             </tr>
           ))}
         </tbody>

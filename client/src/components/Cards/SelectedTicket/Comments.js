@@ -23,9 +23,9 @@ const Comment = ({author, timestamp, text}) => (
 const Comments = ({comments}) => {
   return (
     <Col className="comments-container">
-      <h6 className="heading-small text-muted mb-4">
+      <div className="info-heading">
         Comments
-      </h6>
+      </div>
       <div className="comments">
         {comments.map(comment => (
           <Comment {...comment} key={comment.id}/>
