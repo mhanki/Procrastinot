@@ -3,9 +3,11 @@ import {
   Modal as BModal, 
   Card, CardHeader, CardBody,
   Row, Col, Button,
-  Form, FormGroup, Input, Label
+  Form
 } from 'reactstrap';
 import TagInputs from './TagInputs/TagInputs';
+import DevMultiselect from './DevMultiselect/DevMultiselect';
+import TextInput from './TextInput/TextInput';
 
 const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
   return(
@@ -29,20 +31,8 @@ const Modal = ({isOpen, toggle, ticketInfo, members, tags }) => {
               </Col>
               
               <Col>
-                <FormGroup>
-                  <Label>Assign Developer</Label>
-                  <Input id="exampleSelectMulti" multiple name="selectMulti" type="select" >
-                    {members.map(({user}) => (
-                      <option key={user._id}>
-                        {user.name}
-                      </option>
-                    ))}
-                  </Input>
-                </FormGroup>
-                <FormGroup>
-                  <Label>Estimated Time (Hours)</Label>
-                  <Input />
-                </FormGroup>
+                <DevMultiselect members={members}/>
+                <TextInput label="Estimated Time (Hours)" />
               </Col>
             </Row>
             <Button color="success">Submit</Button>
