@@ -8,11 +8,11 @@ import CardHeader from '../CardHeader/CardHeader';
 import TicketDetails from './TicketDetails';
 import Comments from './Comments';
 
-const SelectedTicket = ({ ticketInfo, modalToggle }) => {
+const SelectedTicket = ({ ticketInfo, toggleModal }) => {
   let { comments, ...info } = ticketInfo;
 
   const menuItems = [
-    { name: "Edit", action: modalToggle },
+    { name: "Edit", action: toggleModal },
     { name: "Remove Assignment", action: () => { return false } }
   ]
 
