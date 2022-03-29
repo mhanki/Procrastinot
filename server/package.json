@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "watch": "nodemon src/server.js",
+    "watch": "NODE_ENV=test nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "keywords": [],
   "author": "",
@@ -21,11 +21,15 @@
     "supertest": "^6.2.0"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^11.0.0",
     "express": "^4.17.2",
+    "express-session": "^1.17.2",
     "mongoose": "^6.1.6",
     "passport": "^0.5.2",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.0.0"
   }
 }

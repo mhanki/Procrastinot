@@ -1,43 +1,41 @@
 const express = require('express');
+const session = require('express-session');
 const passport = require('passport');
-const { Strategy } = require('passport-google-oauth20');
+//const LocalStrategy = require('passport-local');
+const User = require('./models/users');
 
-require('dotenv').config();
-
-const AUTH_OPTIONS = {
-  callbackURL: '/auth/google/callback',
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET
-}
-
-function verifyCallback(accessToken, refreshToken, profile, done) {
-  console.log(profile);
-  done(null, profile);
-}
-
-passport.use(new Strategy(AUTH_OPTIONS, verifyCallback))
+const userRoutes = require('./routes/users/users');
+const projectRoutes = require('./routes/projects/projects');
 
 const app = express();
 
+const sessionConfig = {
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+}
+
 app.use(express.json());
+app.use(session(sessionConfig))
 app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/', (req, res) => {
-  res.send('Hello!');
-});
+//passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy())
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-app.get('/auth/google', passport.authenticate('google',{ 
-  scope: ['email', 'profile'] 
-}));
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+})
 
-app.get('/auth/google/callback', passport.authenticate('google', {
-  failureRedirect: '/failure',
-  successRedirect: '/',
-  session: false
-}));
-
-app.get('/failure', (req, res) => {
-  return res.send('Failed to log in');
-});
+app.use('/', userRoutes);
+app.use('/projects', projectRoutes);
 
 module.exports = app;

@@ -57,7 +57,7 @@ const tasksSchema = new Schema({
 })
 
 const membersSchema = new Schema({
-  user: { 
+  user_id: { 
     type: Schema.Types.ObjectId,
     required: true
   },

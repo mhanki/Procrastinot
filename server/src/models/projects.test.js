@@ -1,4 +1,4 @@
-const Project = require('./projects.model');
+const Project = require('./projects');
 const mongoose = require('mongoose');
 const cloneDeep = require('lodash.clonedeep');
 
@@ -43,11 +43,11 @@ const validProject = {
   ],
   members: [
     {
-      user: mockAdminId,
+      user_id: mockAdminId,
       role: 'Admin'
     },
     {
-      user: mockUserId,
+      user_id: mockUserId,
       role: 'Developer'
     }
   ]
@@ -254,10 +254,10 @@ describe('Members', () => {
 
   it('should be invalid if user id is missing', () => {
     let p = cloneDeep(validProject);
-    delete p.members[0].user
+    delete p.members[0].user_id
     let project = new Project(p);
 
-    checkForPathError(project, 'user');
+    checkForPathError(project, 'user_id');
   })
 
   it('should be invalid if role is missing', () => {
