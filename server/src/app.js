@@ -5,7 +5,7 @@ const User = require('./models/users');
 
 const userRoutes = require('./routes/users/users');
 const projectRoutes = require('./routes/projects/projects');
-const taskRoutes = require('./routes/tasks/tasks');
+const tagsRoutes = require('./routes/tags/tags');
 
 const app = express();
 
@@ -36,6 +36,6 @@ app.use((req, res, next) => {
 
 app.use('/', userRoutes);
 app.use('/projects', projectRoutes);
-app.use('/tasks', taskRoutes);
+app.use('/tags', tagsRoutes);
 
 module.exports = app;
