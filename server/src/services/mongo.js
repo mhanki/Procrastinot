@@ -20,7 +20,16 @@ async function mongoDisconnect() {
   await mongoose.disconnect();
 };
 
+async function cleanDatabase() {
+  const collections = await mongoose.connection.db.collections()
+
+  for await(let collection of collections) {
+    collection.deleteMany()
+  }
+}
+
 module.exports = {
   mongoConnect,
-  mongoDisconnect
+  mongoDisconnect,
+  cleanDatabase
 }

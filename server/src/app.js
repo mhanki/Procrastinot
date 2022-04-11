@@ -1,11 +1,11 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-//const LocalStrategy = require('passport-local');
 const User = require('./models/users');
 
 const userRoutes = require('./routes/users/users');
 const projectRoutes = require('./routes/projects/projects');
+const taskRoutes = require('./routes/tasks/tasks');
 
 const app = express();
 
@@ -25,7 +25,6 @@ app.use(session(sessionConfig))
 app.use(passport.initialize());
 app.use(passport.session());
 
-//passport.use(new LocalStrategy(User.authenticate()));
 passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -37,5 +36,6 @@ app.use((req, res, next) => {
 
 app.use('/', userRoutes);
 app.use('/projects', projectRoutes);
+app.use('/tasks', taskRoutes);
 
 module.exports = app;
