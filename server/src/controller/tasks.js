@@ -41,9 +41,6 @@ const tasks = {
     res.send(savedProject.tasks);
   }),
 
-  /* TODO:
-   * Refactor
-  */
   updateTask: catchAsync(async (req, res) => {
     let { projectId, id } = req.params;
     let task = await Project.findById(projectId)
@@ -57,7 +54,7 @@ const tasks = {
       comments: task.comments
     }
 
-    await Project.findOneAndUpdate({"tasks._id": id}, {
+    await Project.findOneAndUpdate({ "tasks._id": id }, {
       $set: { "tasks.$": updatedTask }
     });
 

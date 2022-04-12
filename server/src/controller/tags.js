@@ -3,25 +3,26 @@ const Project = require('../models/projects');
 
 const tags = {
   addTag: catchAsync(async (req, res) => {
-    let tag = req.body;
     let project = await Project.findById(req.params.projectId);
+    let tag = req.body;
+
     project.tags = [...project.tags, tag];
     let savedProject = await project.save();
+
     res.send(savedProject.tags);
   }),
 
   getById: catchAsync(async (req, res) => {
-    let { projectId, tagId } = req.params;
-    let project = await Project.findById(projectId);
-    let projectTags = project.tags;
-    let tag = projectTags.find(({ _id }) => _id.equals(tagId));
+    let { projectId, id } = req.params;
+    let tag = await Project.findById(projectId)
+      .then(data => data.tags.find(({ _id }) => _id.equals(id)));
 
     res.send(tag);
   }),
 
   getAll: catchAsync(async (req, res) => {
-    let project = await Project.findById(req.params.projectId);
-    let projectTags = project.tags;
+    let tags = await Project.findById(req.params.projectId)
+      .then(data => data.tags);
 
     res.send(tags);
   }),
@@ -35,13 +36,22 @@ const tags = {
   }),
 
   updateTag: catchAsync(async (req, res) => {
-    let tag = req.body;
+    let { projectId, id } = req.params;
+    let { name, values } = req.body;
+    let project = await Project.findById(projectId);
+    let tag = project.tags.find(({ _id }) => _id.equals(id));
 
-    await Project.findOneAndUpdate({ "tags._id": tag._id }, {
-      $set: { "tags.$": tag }
+    let updatedTag = {
+      _id: tag._id,
+      name: name ? name : tag.name,
+      values: values ? values : tag.values
+    }
+
+    await Project.findOneAndUpdate({ "tags._id": id }, {
+      $set: { "tags.$": updatedTag }
     });
 
-    res.send(tag);
+    res.send(updatedTag);
   })
 }
 

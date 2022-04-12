@@ -6,7 +6,7 @@ router.route('/:projectId')
   .get(tags.getAll)
   .post(tags.addTag)
 
-router.route('/:projectId/:tagId')
+router.route('/:projectId/:id')
   .get(tags.getById)
   .delete(tags.removeTag)
   .put(tags.updateTag)

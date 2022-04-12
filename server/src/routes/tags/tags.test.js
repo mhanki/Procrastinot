@@ -76,12 +76,12 @@ describe('GET /tags/:projectId/:id', () => {
 
 describe('PUT /tags/:projectId/:id', () => {
   it('responds with a json object', async () => {
-    let project = await Project.findById(projectId);
-    let oldTag = project.tags[0];
-    let valIds = oldTag.values.map(val => val._id);
-    let newTag = {
-      _id: oldTag._id,
-      name: "Status",
+    let tagId = await getSubdocId(projectId, "tags");
+    let tag = await Project.findById(projectId)
+      .then(data => data.tags.find(({ _id }) => _id.equals(tagId)));
+    let valIds = tag.values.map(val => val._id);
+
+    let newInfo = {
       values: [
         { _id: valIds[0], name: "open", order: 1, color: "blue" },
         { _id: valIds[1], name: "in progress", order: 2, color: "orange" },
@@ -90,8 +90,8 @@ describe('PUT /tags/:projectId/:id', () => {
     };
 
     let res = await request
-      .put(`/tags/${projectId}/${tag._id}`)
-      .send(newTag);
+      .put(`/tags/${projectId}/${tagId}`)
+      .send(newInfo);
 
     isJSON(res);
   });

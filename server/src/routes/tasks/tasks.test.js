@@ -1,6 +1,5 @@
 const supertest = require('supertest');
 const app = require('../../app');
-const Project = require('../../models/projects');
 const { registerUser, createProject, getProjectId, getSubdocId, isJSON } = require('../../utils/testHelper');
 const { mongoConnect, mongoDisconnect, cleanDatabase } = require('../../services/mongo');
 
