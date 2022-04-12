@@ -1,11 +1,18 @@
 const supertest = require('supertest');
 const app = require('../../app');
-const Project = require('../../models/projects');
+const {
+  registerUser,
+  createProject,
+  getProjectId,
+  addTask,
+  getSubdocId,
+  isJSON
+} = require('../../utils/testHelper');
 const { mongoConnect, mongoDisconnect, cleanDatabase } = require('../../services/mongo');
 
 const request = supertest.agent(app);
 
-const user1 = {
+const user = {
   name: "Michael Scott",
   email: "michael@dundermiff.com",
   password: "123"
@@ -16,36 +23,21 @@ const project = {
   description: "A minimalistic Spotify player"
 };
 
-let projectId;
-
-async function _registerUser() {
-  await request.post('/signup').send(user1);
-};
-
-async function _createProject() {
-  await request.post('/projects').send(project);
-};
-
-async function _addTask() {
-  await request.post(`/tasks/${projectId}`).send({
-    title: "Another important task",
-    description: "Do this thing"
-  })
+const task = {
+  title: "Another important task",
+  description: "Do this thing"
 }
 
-async function _getProjectId() {
-  let projects = await request.get('/projects');
-  return projects.body[0]._id;
-};
+let projectId;
 
 beforeAll(async () => {
   try {
     await mongoConnect();
     await cleanDatabase();
-    await _registerUser();
-    await _createProject();
-    projectId = await _getProjectId();
-    await _addTask();
+    await registerUser(request, user);
+    await createProject(request, project);
+    projectId = await getProjectId();
+    await addTask(request, projectId, task);
   } catch (error) {
     console.log(error);
   }
@@ -57,24 +49,23 @@ afterAll(async () => {
 
 describe('POST /comments/:projectId/:taskId', () => {
   it('responds with a json object', async () => {
-    let taskId = await Project.findById(projectId)
-      .then(data => data.tasks[0]._id)
+    let taskId = await getSubdocId(projectId, "tasks");
     let comment = { text: "I'm on it!" };
-    let res = await request.post(`/comments/${projectId}/${taskId}`).send(comment);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    let res = await request
+      .post(`/comments/${projectId}/${taskId}`)
+      .send(comment);
+
+    isJSON(res);
   })
 });
 
 describe('GET /comments/:projectId/:taskId', () => {
   it('responds with a json object', async () => {
-    let taskId = await Project.findById(projectId)
-      .then(data => data.tasks[0]._id);
+    let taskId = await getSubdocId(projectId, "tasks");
 
     let res = await request.get(`/tasks/${projectId}/${taskId}`);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   });
 });

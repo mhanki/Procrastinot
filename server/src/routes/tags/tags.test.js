@@ -1,5 +1,7 @@
 const supertest = require('supertest');
 const app = require('../../app');
+const Project = require('../../models/projects');
+const { registerUser, createProject, getProjectId, getSubdocId, isJSON } = require('../../utils/testHelper');
 const { mongoConnect, mongoDisconnect, cleanDatabase } = require('../../services/mongo');
 
 const request = supertest.agent(app);
@@ -26,26 +28,13 @@ const tag = {
 
 let projectId;
 
-async function _registerUser() {
-  await request.post('/signup').send(user);
-};
-
-async function _createProject() {
-  await request.post('/projects').send(project);
-};
-
-async function _getProjectId() {
-  let projects = await request.get('/projects');
-  return projects.body[0]._id;
-};
-
 beforeAll(async () => {
   try {
     await mongoConnect();
     await cleanDatabase();
-    await _registerUser();
-    await _createProject();
-    projectId = await _getProjectId();
+    await registerUser(request, user);
+    await createProject(request, project);
+    projectId = await getProjectId();
   } catch (error) {
     console.log(error);
   }
@@ -57,37 +46,37 @@ afterAll(async () => {
 
 describe('POST /tags/:projectId', () => {
   it('responds with a json object', async () => {
-    let res = await request.post(`/tags/${projectId}`).send(tag);
+    let res = await request
+      .post(`/tags/${projectId}`)
+      .send(tag);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   })
 });
 
 describe('GET /tags/:projectId', () => {
   it('responds with a json object', async () => {
-    let res = await request.get(`/tags/${projectId}`);
+    let res = await request
+      .get(`/tags/${projectId}`);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   });
 });
 
 describe('GET /tags/:projectId/:id', () => {
   it('responds with a json object', async () => {
-    let project = await request.get(`/projects/${projectId}`).then(res => res.body);
-    let tagId = project.tags[0]._id;
+    let tagId = await getSubdocId(projectId, "tags");
 
-    let res = await request.get(`/tags/${projectId}/${tagId}`);
+    let res = await request
+      .get(`/tags/${projectId}/${tagId}`);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   });
 });
 
 describe('PUT /tags/:projectId/:id', () => {
   it('responds with a json object', async () => {
-    let project = await request.get(`/projects/${projectId}`).then(res => res.body);
+    let project = await Project.findById(projectId);
     let oldTag = project.tags[0];
     let valIds = oldTag.values.map(val => val._id);
     let newTag = {
@@ -100,21 +89,20 @@ describe('PUT /tags/:projectId/:id', () => {
       ]
     };
 
-    let res = await request.put(`/tags/${projectId}/${tag._id}`).send(newTag);
+    let res = await request
+      .put(`/tags/${projectId}/${tag._id}`)
+      .send(newTag);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   });
 });
 
 describe('DELETE /tags/:projectId/:id', () => {
   it('responds with a json object', async () => {
-    let project = await request.get(`/projects/${projectId}`).then(res => res.body);
-    let tagId = project.tags[0]._id;
+    let tagId = await getSubdocId(projectId, "tags")
 
     let res = await request.delete(`/tags/${projectId}/${tagId}`);
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   });
 });

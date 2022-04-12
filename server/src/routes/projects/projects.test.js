@@ -1,6 +1,6 @@
 const supertest = require('supertest');
 const app = require('../../app');
-const Project = require('../../models/projects');
+const { registerUser, createProject, getProjectId, isJSON } = require('../../utils/testHelper');
 const { mongoConnect, mongoDisconnect, cleanDatabase } = require('../../services/mongo');
 
 const request = supertest.agent(app)
@@ -16,16 +16,16 @@ let project = {
   description: "A minimalistic Spotify player"
 }
 
-async function _registerUser() {
-  await request.post('/signup').send(user)
-}
+let projectId;
 
 beforeAll(async () => {
-  try{
+  try {
     await mongoConnect();
     await cleanDatabase();
-    await _registerUser();
-  } catch(error){
+    await registerUser(request, user);
+    await createProject(request, project);
+    projectId = await getProjectId();
+  } catch (error) {
     console.log(error)
   }
 })
@@ -56,35 +56,30 @@ describe('GET /projects', () => {
 
 describe('GET /projects/:id', () => {
   it('responds with a json object', async () => {
-    let projects = await request.get('/projects');
-    let projectId = projects.body[0]._id;
+    let res = await request
+      .get(`/projects/${projectId}`);
 
-    let res = await request.get(`/projects/${projectId}`);
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    isJSON(res);
   });
 });
 
 describe('PUT /projects/:id', () => {
   it('responds with a json object', async () => {
-    let updatedInfo = {description: "A Minimalistic Spotify Player"}
-    let projects = await request.get('/projects');
-    let projectId = projects.body[0]._id;
-    let res = await request.put(`/projects/${projectId}`).send(updatedInfo);
+    let updatedInfo = { description: "A Minimalistic Spotify Player" }
 
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(200);
+    let res = await request.put(`/projects/${projectId}`)
+      .send(updatedInfo);
+
+    isJSON(res);
   })
 });
 
 describe('DELETE /projects/:id', () => {
   it('responds with a json object', async () => {
-    let projects = await request.get('/projects');
-    let projectId = projects.body[0]._id;
+    let res = await request
+      .delete(`/projects/${projectId}`);
 
-    let res = await request.delete(`/projects/${projectId}`);
-    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
-    expect(res.body._id).toEqual(projectId);
-    expect(200);
+    isJSON(res);
+    expect(res.body._id).toEqual(projectId.toString());
   });
 });
