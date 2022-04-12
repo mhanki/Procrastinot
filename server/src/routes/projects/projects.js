@@ -9,5 +9,6 @@ router.route('/')
 router.route('/:id')
   .get(projects.getById)
   .delete(projects.deleteProject)
+  .put(projects.updateInfo)
 
 module.exports = router;

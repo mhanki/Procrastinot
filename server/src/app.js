@@ -8,6 +8,7 @@ const projectRoutes = require('./routes/projects/projects');
 const tagsRoutes = require('./routes/tags/tags');
 const membersRoutes = require('./routes/members/members');
 const tasksRoutes = require('./routes/tasks/tasks');
+const commentsRoutes = require('./routes/comments/comments');
 
 const app = express();
 
@@ -41,5 +42,6 @@ app.use('/projects', projectRoutes);
 app.use('/tags', tagsRoutes);
 app.use('/members', membersRoutes);
 app.use('/tasks', tasksRoutes);
+app.use('/comments', commentsRoutes);
 
 module.exports = app;

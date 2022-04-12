@@ -59,6 +59,16 @@ const projects = {
 
     res.send(deletedProject);
   }),
+
+  updateInfo: catchAsync(async (req, res) => {
+    let { title, description } = req.body
+    let project = await Project.findById(req.params.id);
+    project.title = title ? title : project.title;
+    project.description = description ? description : project.description;
+
+    await project.save();
+    res.send(project);
+  })
 }
 
 module.exports = projects;

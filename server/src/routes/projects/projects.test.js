@@ -1,5 +1,6 @@
 const supertest = require('supertest');
 const app = require('../../app');
+const Project = require('../../models/projects');
 const { mongoConnect, mongoDisconnect, cleanDatabase } = require('../../services/mongo');
 
 const request = supertest.agent(app)
@@ -62,6 +63,18 @@ describe('GET /projects/:id', () => {
     expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
     expect(200);
   });
+});
+
+describe('PUT /projects/:id', () => {
+  it('responds with a json object', async () => {
+    let updatedInfo = {description: "A Minimalistic Spotify Player"}
+    let projects = await request.get('/projects');
+    let projectId = projects.body[0]._id;
+    let res = await request.put(`/projects/${projectId}`).send(updatedInfo);
+
+    expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
+    expect(200);
+  })
 });
 
 describe('DELETE /projects/:id', () => {
