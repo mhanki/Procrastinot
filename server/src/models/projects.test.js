@@ -33,9 +33,8 @@ const validProject = {
       tags: [{tag: mockTagId, value: mockTagValueId}],
       comments: [
         {
-          author: 'Dwight Schrute',
-          author_id: mockUserId,
-          timestamp: Date.now(),
+          author: mockUserId,
+          date_created: Date.now(),
           text: 'I want to help, Michael!'
         }
       ]
@@ -177,13 +176,6 @@ describe('Tasks', () => {
     expect(project.tasks[0].description).toEqual('');
   })
 
-  it('should be invalid if author is missing', () => {
-    let p = _removeProperty('author');
-    let project = new Project(p);
-
-    checkForPathError(project, 'author');
-  })
-
   it('should have empty array if assigned devs are missing', () => {
     let p = _removeProperty('assigned');
     let project = new Project(p);
@@ -228,18 +220,11 @@ describe('Comment', () => {
     checkForPathError(project, 'author');
   })
 
-  it('should be invalid if author_id is missing', () => {
-    let p = _removeProperty('author_id');
+  it('should be invalid if date_created is missing', () => {
+    let p = _removeProperty('date_created');
     let project = new Project(p);
 
-    checkForPathError(project, 'author_id');
-  })
-
-  it('should be invalid if timestamp is missing', () => {
-    let p = _removeProperty('timestamp');
-    let project = new Project(p);
-
-    checkForPathError(project, 'timestamp');
+    checkForPathError(project, 'date_created');
   })
 
   it('should be invalid if text is missing', () => {

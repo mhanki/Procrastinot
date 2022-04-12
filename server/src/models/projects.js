@@ -49,9 +49,8 @@ const tasksSchema = new Schema({
     value: { type: Schema.Types.ObjectId, required: true }
   }],
   comments: [{
-    author: { type: String, required: true },
-    author_id: { type: Schema.Types.ObjectId, required: true },
-    timestamp: {type: Date, required: true },
+    author: { type: Schema.Types.ObjectId, required: true },
+    date_created: {type: Date, required: true },
     text: {type: String, required: true}
   }]
 })
