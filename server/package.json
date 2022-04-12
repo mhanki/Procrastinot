@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "NODE_ENV=test nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest --runInBand"
   },
   "keywords": [],
   "author": "",
