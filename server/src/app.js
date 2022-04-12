@@ -6,6 +6,7 @@ const User = require('./models/users');
 const userRoutes = require('./routes/users/users');
 const projectRoutes = require('./routes/projects/projects');
 const tagsRoutes = require('./routes/tags/tags');
+const membersRoutes = require('./routes/members/members');
 
 const app = express();
 
@@ -37,5 +38,6 @@ app.use((req, res, next) => {
 app.use('/', userRoutes);
 app.use('/projects', projectRoutes);
 app.use('/tags', tagsRoutes);
+app.use('/members', membersRoutes);
 
 module.exports = app;
