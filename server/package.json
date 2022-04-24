@@ -21,6 +21,8 @@
     "supertest": "^6.2.0"
   },
   "dependencies": {
+    "@sentry/node": "^6.19.6",
+    "@sentry/tracing": "^6.19.6",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^11.0.0",
