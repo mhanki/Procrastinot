@@ -17,7 +17,7 @@
 
 ## About the App
 
-WIP
+The app is still a work in progress. Find the roadmap for this project [here](https://github.com/users/mhanki/projects/17).
 
 ## Technical
 
@@ -27,9 +27,4 @@ WIP
 ![Express](https://img.shields.io/static/v1?message=Express&logo=Express&logoColor=fff&label=%20&labelColor=595959&color=0e0e0e) 
 ![MongoDB](https://img.shields.io/static/v1?message=MongoDB&logo=MongoDB&logoColor=47A248&label=%20&labelColor=595959&color=47A248) 
 ![React](https://img.shields.io/static/v1?message=React&logo=React&logoColor=61DAFB&label=%20&labelColor=595959&color=61DAFB) 
-![HTML](https://img.shields.io/static/v1?message=HTML&logo=HTML5&logoColor=E34F26&label=%20&labelColor=595959&color=E34F26) 
-![CSS](https://img.shields.io/static/v1?message=CSS&logo=CSS3&logoColor=1572B6&label=%20&labelColor=595959&color=1572B6) 
-
-### To Do List
-
-You can find a roadmap for this project [here](https://github.com/users/mhanki/projects/2).
+![Sentry](https://img.shields.io/static/v1?message=Sentry&logo=sentry&logoColor=e1567c&label=%20&labelColor=595959&color=e1567c) 
