@@ -2,7 +2,7 @@
   <h1 align="center">Procrastinot <br> (🏗 In Progresss)</h1>
 
   <p align="center">
-     <strong>Track and manage tasks and issues of your projects</strong>
+     <strong>Track and manage project tasks and issues</strong>
     <br>
   </p>
   <a href="https://github.com/mhanki/Issue-Tracker">
