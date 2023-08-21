@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">Procrastinot Issue Tracker (🏗 In Progresss)</h1>
+  <h1 align="center">Procrastinot <br> (🏗 In Progresss)</h1>
 
   <p align="center">
      <strong>Track and manage tasks and issues of your projects</strong>
@@ -20,11 +20,10 @@
 
 ## About the App
 
-**🏗 This app is still a work in progress. Find the current roadmap [here](https://github.com/users/mhanki/projects/17).**
+**🏗 This app is still a work in progress. Find the current project plan [here](https://github.com/users/mhanki/projects/17).**
 
----
 
-Procrastinot is an issue and task manager there to help you and your team stay organized as you work on projects.
+Procrastinot is an issue and task manager here to help you and your team stay organized as you work on projects.
 
 ## Features:
 
