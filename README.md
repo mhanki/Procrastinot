@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">Issue Tracker</h1>
+  <h1 align="center">Procrastinot Issue Tracker (🏗 In Progresss)</h1>
 
   <p align="center">
      <strong>Track and manage tasks and issues of your projects</strong>
@@ -20,15 +20,17 @@
 
 ## About the App
 
-The app is still a work in progress. Find the roadmap for this project [here](https://github.com/users/mhanki/projects/17).
+**🏗 This app is still a work in progress. Find the current roadmap [here](https://github.com/users/mhanki/projects/17).**
 
-Create projects, manage issues and tasks, and collaborate with your team members
+---
+
+Procrastinot is an issue and task manager there to help you and your team stay organized as you work on projects.
 
 ## Features:
 
-- **Project Creation**: Create projects and define their details such as the project name, description, and individual tags to help track progress and keep your projects stay organized.
+- **Project Creation**: Create projects and define their details such as project name, description, and individual tags to help track progress and keep your projects organized.
 
-- **Issue and Task Management**: Create new tickets for any issues and tasks that will show a title, description, and the pre-defined project tags. Team members can pick or be assigned to tickets, and update tag values as the task is being worked on.
+- **Issue and Task Management**: Create tickets for any issues and tasks, displaying details such as title, description, and pre-defined project tags. Team members can pick or be assigned to tickets and update tag values as the task is being worked on.
 
 - **Collaborative Environment**: Easily add and remove team members and stay connected through real-time updates and comments.
 
